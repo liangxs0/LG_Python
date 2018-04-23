@@ -6,7 +6,8 @@ import os
 import time
 
 import datetime
-def get_info(type,city):
+
+def get_info(type,w_type,city):
 
     url = 'https://www.lagou.com/jobs/positionAjax.json?px=default&city='+city+'&needAddtionalResult=false'
 
@@ -22,7 +23,7 @@ def get_info(type,city):
         'Host': 'www.lagou.com',
         'Origin': 'https://www.lagou.com',
         'Referer': 'https://www.lagou.com/jobs/list_python%E7%88%AC%E8%99%AB?px=default&city=%E5%8C%97%E4%BA%AC',
-        'Referer': 'https://www.lagou.com/jobs/list_'+type+'+?px=default&city='+city,
+        'Referer': 'https://www.lagou.com/jobs/list_'+w_type+'+?px=default&city='+city,
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
         'X-Anit-Forge-Code': '0',
         'X-Anit-Forge-Token': 'None',
@@ -99,7 +100,16 @@ def data_process(formatCreateTime):
 
 if __name__ == '__main__':
     #Type_l = ['java', 'python', 'C++', 'C', '物联网', '大数据', '机器学习', 'JS', 'PHP', 'HTML']
-    Type_l = ['java', 'python', 'C++', 'C', '嵌入式','物联网', '大数据']
+
+    Type_l = ['java', 'python', 'C++', 'C', '嵌入式','物联网','大数据']
+    w_type = {'java':'java',
+              'python':'python',
+              'C++':'C%2B%2B',
+              'C':'C',
+              '嵌入式':'%E5%B5%8C%E5%85%A5%E5%BC%8F',
+              '物联网':'%E7%89%A9%E8%81%94%E7%BD%91',
+              '大数据':'%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81'
+              }
     City = {'北京':'%E5%8C%97%E4%BA%AC',
             '上海':'%E4%B8%8A%E6%B5%B7',
             '广州':'%E5%B9%BF%E5%B7%9E',
@@ -128,4 +138,4 @@ if __name__ == '__main__':
         file = open('ff.txt','a+')
         file.write('\n'+'---------------------------------------------------------------------'+Type_l[i]+'---------------------------------------------------------------------------------------------------------------------------------'+'\n')
         file.close()
-        get_info(Type_l[i],City[city])
+        get_info(Type_l[i],w_type[Type_l[i]],City[city])
